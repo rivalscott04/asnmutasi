@@ -1,0 +1,286 @@
+# MVC CLEAN ARCHITECTURE PROMPT GUIDE
+# Simple guideline untuk AI Agent membuat PHP MVC Framework
+
+# =============================================================================
+# PROJECT BRIEF
+# =============================================================================
+
+task: "Buat PHP MVC Framework native dengan clean architecture dan environment support"
+requirements: "Simple, secure, maintainable untuk internal development"
+tech_stack: "Native PHP 7.4+, MySQL, tanpa external framework"
+
+# =============================================================================
+# PROJECT STRUCTURE
+# =============================================================================
+
+folder_structure: |
+  project/
+  ├── public/
+  │   ├── index.php              # Entry point
+  │   ├── .htaccess              # URL rewriting
+  │   └── assets/                # CSS, JS, images
+  ├── app/
+  │   ├── Config/
+  │   │   ├── App.php            # App config dengan env()
+  │   │   ├── Database.php       # DB config dengan env()
+  │   │   └── Routes.php         # Route definitions
+  │   ├── Controllers/
+  │   │   ├── BaseController.php # JSON response, validation helpers
+  │   │   └── UserController.php # CRUD example
+  │   ├── Models/
+  │   │   ├── BaseModel.php      # Active Record pattern
+  │   │   └── User.php           # Model example
+  │   ├── Services/
+  │   │   └── UserService.php    # Business logic layer
+  │   ├── Middleware/
+  │   │   └── AuthMiddleware.php # Authentication check
+  │   └── Validators/
+  │       └── UserValidator.php  # Input validation rules
+  ├── core/
+  │   ├── Application.php        # Bootstrap application
+  │   ├── Router.php             # Handle routing
+  │   ├── Database/
+  │   │   └── Connection.php     # PDO wrapper
+  │   ├── Http/
+  │   │   ├── Request.php        # HTTP request object
+  │   │   └── Response.php       # HTTP response object
+  │   ├── Support/
+  │   │   ├── Env.php            # Load .env file
+  │   │   ├── Config.php         # Config management
+  │   │   └── Container.php      # Dependency injection
+  │   └── autoload.php           # PSR-4 autoloader
+  ├── .env                       # Environment variables
+  └── .env.example              # Environment template
+
+# =============================================================================
+# IMPLEMENTATION REQUIREMENTS
+# =============================================================================
+
+environment_system:
+  env_file: |
+    # Application
+    APP_NAME="MVC App"
+    APP_ENV=development
+    APP_DEBUG=true
+    APP_KEY=your-secret-key
+    
+    # Database  
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=mvc_app
+    DB_USERNAME=root
+    DB_PASSWORD=
+    
+    # Cache
+    CACHE_DRIVER=file
+    SESSION_LIFETIME=120
+
+  env_loader: "core/Support/Env.php - Parse .env file, support quoted values, type casting"
+  config_manager: "core/Support/Config.php - Load config files, dot notation access"
+
+core_components:
+  application: "core/Application.php - Bootstrap app, load env, config, register services"
+  router: "core/Router.php - Handle GET/POST routes, middleware support, parameter extraction"
+  database: "core/Database/Connection.php - PDO wrapper, prepared statements, transaction support"
+  container: "core/Support/Container.php - Simple DI container dengan auto-resolve"
+  autoloader: "core/autoload.php - PSR-4 autoloader dengan namespace mapping"
+
+mvc_layers:
+  base_model: "app/Models/BaseModel.php - Active Record: find(), create(), update(), delete()"
+  base_controller: "app/Controllers/BaseController.php - JSON helpers, validation, auth check"
+  base_service: "app/Services/ - Business logic layer dengan transaction support"
+  middleware: "app/Middleware/ - Request filtering (auth, validation, etc)"
+  validator: "app/Validators/ - Input validation rules"
+
+security_features:
+  input_validation: "Sanitize all inputs, prepared statements only"
+  authentication: "Session-based auth dengan password hashing"
+  error_handling: "Hide errors di production, log untuk debugging"
+  csrf_protection: "Basic CSRF token validation"
+
+# =============================================================================
+# IMPLEMENTATION GUIDE
+# =============================================================================
+
+step_1_core_framework:
+  task: "Implement core framework components"
+  files:
+    - "core/autoload.php - PSR-4 autoloader"
+    - "core/Support/Env.php - Environment loader"
+    - "core/Support/Config.php - Configuration manager"
+    - "core/Support/Container.php - Dependency injection"
+    - "core/Database/Connection.php - Database wrapper"
+    - "core/Application.php - Main application class"
+
+step_2_http_layer:
+  task: "Implement HTTP abstraction"
+  files:
+    - "core/Http/Request.php - HTTP request handling"
+    - "core/Http/Response.php - HTTP response formatting"
+    - "core/Router.php - URL routing dengan middleware"
+
+step_3_mvc_base:
+  task: "Implement MVC base classes"
+  files:
+    - "app/Models/BaseModel.php - Active Record pattern"
+    - "app/Controllers/BaseController.php - Controller utilities"
+    - "app/Services/BaseService.php - Service layer pattern"
+    - "app/Validators/BaseValidator.php - Validation system"
+    - "app/Middleware/AuthMiddleware.php - Authentication check"
+
+step_4_configuration:
+  task: "Setup configuration dan routing"
+  files:
+    - "app/Config/App.php - Application settings"
+    - "app/Config/Database.php - Database configuration"
+    - "app/Config/Routes.php - Route definitions"
+    - ".env.example - Environment template"
+
+step_5_entry_point:
+  task: "Create application entry point"
+  files:
+    - "public/index.php - Bootstrap dan handle requests"
+    - "public/.htaccess - URL rewriting rules"
+
+step_6_examples:
+  task: "Create working examples"
+  files:
+    - "app/Models/User.php - User model example"
+    - "app/Controllers/UserController.php - User CRUD controller"
+    - "app/Services/UserService.php - User business logic"
+    - "app/Validators/UserValidator.php - User validation"
+
+# =============================================================================
+# CODING STANDARDS
+# =============================================================================
+
+php_standards:
+  - "Use PSR-4 autoloading"
+  - "Follow PSR-12 coding style"
+  - "Use type hints untuk parameters dan return values"
+  - "Implement proper error handling"
+  - "Use meaningful variable dan method names"
+
+security_requirements:
+  - "Always use prepared statements"
+  - "Sanitize all user inputs"
+  - "Hash passwords dengan password_hash()"
+  - "Validate all incoming data"
+  - "Use HTTPS di production"
+
+architecture_principles:
+  - "Thin controllers, fat services"
+  - "Single responsibility per class"
+  - "Dependency injection over global state"
+  - "Configuration over hard-coding"
+  - "Fail fast dengan proper exceptions"
+
+# =============================================================================
+# KEY IMPLEMENTATIONS
+# =============================================================================
+
+essential_methods:
+  env_loader:
+    - "load() - Parse .env file"
+    - "get($key, $default) - Get environment variable"
+    - "require($key) - Get required env variable"
+
+  config_manager:
+    - "load() - Load all config files"
+    - "get($key, $default) - Get config dengan dot notation"
+
+  database_connection:
+    - "query($sql, $params) - Execute prepared statement"
+    - "fetch($sql, $params) - Fetch single record"
+    - "fetchAll($sql, $params) - Fetch multiple records"
+
+  base_model:
+    - "find($id) - Find by primary key"
+    - "create($data) - Create new record"
+    - "update($id, $data) - Update record"
+    - "delete($id) - Delete record"
+
+  base_controller:
+    - "json($data, $status) - JSON response"
+    - "success($data) - Success response"
+    - "error($message, $status) - Error response"
+    - "validate($data, $rules) - Validate input"
+
+  router:
+    - "get($path, $handler) - Register GET route"
+    - "post($path, $handler) - Register POST route"
+    - "group($attributes, $callback) - Group routes"
+    - "dispatch($request) - Handle incoming request"
+
+# =============================================================================
+# SUCCESS CRITERIA
+# =============================================================================
+
+functional_requirements:
+  - "✅ Load .env variables correctly"
+  - "✅ Handle basic GET/POST routes"
+  - "✅ Connect to database dengan PDO"
+  - "✅ Basic CRUD operations working"
+  - "✅ JSON API responses"
+  - "✅ Input validation"
+  - "✅ Basic authentication"
+  - "✅ Error handling"
+
+code_quality:
+  - "✅ Clean code structure"
+  - "✅ Proper separation of concerns"
+  - "✅ Security best practices"
+  - "✅ Consistent naming conventions"
+  - "✅ Basic error logging"
+
+deployment_ready:
+  - "✅ Works dengan URL rewriting"
+  - "✅ Environment-based configuration"
+  - "✅ Production error handling"
+  - "✅ Basic security measures"
+
+# =============================================================================
+# EXAMPLE USAGE PATTERNS
+# =============================================================================
+
+routing_example: |
+  // app/Config/Routes.php
+  $router->get('/', 'HomeController@index');
+  $router->get('/users/{id}', 'UserController@show');
+  $router->post('/users', 'UserController@store');
+  $router->group(['middleware' => 'auth'], function($router) {
+      $router->get('/dashboard', 'DashboardController@index');
+  });
+
+controller_example: |
+  // app/Controllers/UserController.php
+  class UserController extends BaseController {
+      public function index() {
+          $users = User::all();
+          return $this->success(['users' => $users]);
+      }
+      
+      public function store() {
+          $data = $this->validate($this->request->input(), [
+              'name' => 'required|string',
+              'email' => 'required|email|unique:users'
+          ]);
+          
+          $user = User::create($data);
+          return $this->success(['user' => $user]);
+      }
+  }
+
+model_example: |
+  // app/Models/User.php  
+  class User extends BaseModel {
+      protected $table = 'users';
+      protected $fillable = ['name', 'email', 'password'];
+      protected $hidden = ['password'];
+  }
+
+environment_example: |
+  // Usage di config files
+  'database' => env('DB_DATABASE', 'default_db'),
+  'debug' => env('APP_DEBUG', false),
+  'key' => env('APP_KEY'),

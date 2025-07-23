@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surat Pernyataan Tanggung Jawab Mutlak - Kementerian Agama</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.4.1/paper.min.css">
+    <style>
+        @page { size: A4 }
+        
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000;
+        }
+        
+        .sheet {
+            padding: 1.5cm 2cm;
+            margin: 0 auto;
+        }
+        
+        .content-wrapper {
+            margin: 0 1cm;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #000;
+            padding-bottom: 12px;
+            position: relative;
+        }
+        
+        .logo {
+            width: 90px;
+            height: 90px;
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            z-index: 1;
+        }
+        
+        .header-content {
+            overflow: hidden;
+        }
+        
+        .header-text {
+            font-weight: bold;
+            font-size: 14pt;
+            line-height: 1.2;
+            margin-bottom: 5px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .header-text .sub-header {
+            font-size: 12pt;
+        }
+        
+        .header-info {
+            font-size: 9pt;
+            line-height: 1.1;
+            margin-top: 8px;
+        }
+        
+        .title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 11pt;
+            margin: 25px 0 15px 0;
+        }
+        
+        .nomor {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 11pt;
+        }
+        
+        .content {
+            text-align: justify;
+            margin-bottom: 15px;
+        }
+        
+        .intro {
+            margin-bottom: 15px;
+        }
+        
+        .data-table {
+            margin: 15px 0;
+            width: 100%;
+        }
+        
+        .data-row {
+            display: flex;
+            margin-bottom: 6px;
+        }
+        
+        .data-label {
+            width: 150px;
+            flex-shrink: 0;
+        }
+        
+        .data-colon {
+            width: 20px;
+            flex-shrink: 0;
+        }
+        
+        .data-value {
+            flex-grow: 1;
+        }
+        
+        .signature-section {
+            margin-top: 30px;
+            margin-left: auto;
+            width: 200px;
+            text-align: left;
+        }
+        
+        .signature-place {
+            margin-bottom: 5px;
+        }
+        
+        .signature-name {
+            font-weight: bold;
+            text-decoration: underline;
+            margin-left: 0;
+        }
+        
+        .signature-nip {
+            margin-top: 5px;
+            margin-left: 0;
+        }
+        
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .sheet {
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body class="A4">
+    <section class="sheet padding-10mm">
+        <!-- Header -->
+        <div class="header">
+            <img src="{{logo_url}}" alt="Logo Kementerian Agama" class="logo">
+            <div class="header-content">
+                <div class="header-text">
+                    KEMENTERIAN AGAMA REPUBLIK INDONESIA<br>
+                    <span class="sub-header">KANTOR KEMENTERIAN AGAMA {{kabkota}}</span>
+                </div>
+                <div class="header-info">
+                    {{jln}}<br>
+                    {{telfon}}<br>
+                    {{fax}} {{email}}<br>
+                    {{website}}
+                </div>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- Title -->
+            <div class="title">
+                <strong>SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK</strong>
+            </div>
+        
+        <!-- Nomor Surat -->
+        <div class="nomor">
+            Nomor : B-{{nosrt}}/Kk.18.08/1/Kp.01.2/{{blnno}}/{{thnno}}
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <div class="intro">
+                Yang bertanda tangan di bawah ini :
+            </div>
+
+            <!-- Data Pejabat -->
+            <div class="data-table">
+                <div class="data-row">
+                    <div class="data-label">Nama</div>
+                    <div class="data-colon">:</div>
+                    <div class="data-value">{{namapejabat}}</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">NIP</div>
+                    <div class="data-colon">:</div>
+                    <div class="data-value">{{nippejabat}}</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Pangkat/Gol.Ruang</div>
+                    <div class="data-colon">:</div>
+                    <div class="data-value">{{pangkatgolpejabat}}</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Jabatan</div>
+                    <div class="data-colon">:</div>
+                    <div class="data-value">{{jabatanpejabat}}</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Unit/Satuan Kerja</div>
+                    <div class="data-colon">:</div>
+                    <div class="data-value">{{ukerpejabat}}</div>
+                </div>
+            </div>
+
+            <p>
+                Dengan menyatakan dan menjamin kebenaran serta bertanggung jawab atas dokumen dan data yang disampaikan telah sesuai dengan ketentuan peraturan perundang-undangan yang berlaku dan data yang disampaikan adalah data terkini dan valid berdasarkan data Sistem Informasi Manajemen Kepegawaian (SIMPEG) Kementerian Agama
+            </p>
+
+            <p>
+                Demikian pernyataan ini dibuat dengan sesungguhnya untuk dipergunakan sebagaimana mestinya.
+            </p>
+        </div>
+
+        <!-- Signature -->
+        <div class="signature-section">
+            <div class="signature-place">
+                {{ibukota}}, {{dd-mm-yyyy}}
+            </div>
+            <div>
+                Kepala,
+            </div>
+            <div class="signature-space" style="height: 60px;"></div>
+            <div class="signature-name">
+                {{namapejabat}}
+            </div>
+            <div class="signature-nip">
+                NIP. {{nippejabat}}
+            </div>
+        </div>
+        </div>
+    </section>
+</body>
+</html>

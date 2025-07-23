@@ -1,0 +1,109 @@
+# Dependencies
+vendor/
+composer.lock
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Cache and temporary files
+/storage/cache/
+/storage/logs/
+/storage/sessions/
+/storage/temp/
+/storage/generated/*.pdf
+/storage/generated/*.docx
+/storage/generated/*.doc
+*.tmp
+*.temp
+*.cache
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# PHP specific
+*.log
+php_errors.log
+error_log
+
+# Build and distribution
+/dist/
+/build/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Database
+*.sqlite
+*.db
+
+# Uploads (if any)
+/public/uploads/
+
+# Config files that might contain sensitive data
+config/database.php
+config/app.php
+
+# Vercel
+.vercel
+
+# Generated documentation
+/docs/build/
+
+# Test coverage
+/coverage/
+
+# Package managers
+package-lock.json
+yarn.lock
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
