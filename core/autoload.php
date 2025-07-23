@@ -64,6 +64,11 @@ class Autoloader
 // Register autoloader
 Autoloader::register();
 
+// Load Composer autoloader if exists
+if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require_once __DIR__ . '/../vendor/autoload.php';
+}
+
 // Always load global helpers
 require_once __DIR__ . '/Support/Config.php';
 require_once __DIR__ . '/Support/Env.php';

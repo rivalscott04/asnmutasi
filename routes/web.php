@@ -78,6 +78,8 @@ $router->group(['prefix' => '/surat', 'middleware' => ['App\Middleware\AuthMiddl
     
     // Preview surat pengalaman mengajar (AJAX)
     $router->post('/pengalaman-mengajar/preview', [App\Controllers\Surat\SuratKeteranganPengalamanMengajarController::class, 'preview']);
+    // Download PDF surat pengalaman mengajar (Browsershot)
+    $router->get('/pengalaman-mengajar/download-pdf/{filename}', [App\Controllers\Surat\SuratKeteranganPengalamanMengajarController::class, 'downloadPdf']);
     // Preview surat permohonan skbt (AJAX)
     $router->post('/permohonan-skbt/preview', [App\Controllers\Surat\SuratPermohonanSkbtController::class, 'preview']);
     // Preview surat pernyataan disiplin (AJAX)
@@ -100,6 +102,9 @@ $router->group(['prefix' => '/surat', 'middleware' => ['App\Middleware\AuthMiddl
     
     // Preview generated letter
     $router->get('/preview/{id}', [SuratController::class, 'preview']);
+    
+    // History of generated letters
+    $router->get('/history', [SuratController::class, 'history']);
 });
 
 // Route alias agar /surat tanpa slash juga valid

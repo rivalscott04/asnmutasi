@@ -217,14 +217,25 @@ class SuratKeteranganPengalamanMengajarController extends BaseController
         // Save generated file
         file_put_contents($filepath, $templateContent);
         
+        // Log debug untuk filepath dan filename
+        log_debug('GenerateSurat: Filepath dan filename hasil generate', [
+            'filepath' => $filepath,
+            'filename' => $filename
+        ]);
+        
         if ($this->expectsJson()) {
             return $this->success([
+                'filepath' => $filepath,
                 'filename' => $filename,
                 'download_url' => $this->url('surat/download/' . base64_encode($filename)),
                 'preview_url' => $this->url('surat/preview/' . base64_encode($filename))
             ], 'Surat berhasil dibuat');
         } else {
-            return $this->redirect('/surat/preview/' . base64_encode($filename));
+            return [
+                'filepath' => $filepath,
+                'filename' => $filename,
+                'preview_url' => $this->url('surat/preview/' . base64_encode($filename))
+            ];
         }
     }
     
@@ -334,5 +345,56 @@ class SuratKeteranganPengalamanMengajarController extends BaseController
         
         // Return original if parsing fails
         return $dateString;
+    }
+
+    /**
+     * Download PDF dari file HTML hasil generate menggunakan Browsershot
+     */
+    public function downloadPdf($filename)
+    {
+        // Pastikan Browsershot sudah di-install via Composer
+        if (!class_exists('Spatie\\Browsershot\\Browsershot')) {
+            http_response_code(500);
+            echo 'Browsershot belum terinstall. Jalankan composer require spatie/browsershot';
+            exit;
+        }
+        
+        $htmlPath = STORAGE_PATH . '/generated/' . basename($filename);
+        if (!file_exists($htmlPath)) {
+            http_response_code(404);
+            echo 'File HTML tidak ditemukan.';
+            exit;
+        }
+        
+        $pdfPath = STORAGE_PATH . '/generated/' . pathinfo($filename, PATHINFO_FILENAME) . '.pdf';
+        
+        try {
+            // Generate PDF dari HTML menggunakan Browsershot
+            \Spatie\Browsershot\Browsershot::html(file_get_contents($htmlPath))
+                ->setOption('enable-local-file-access', true)
+                ->format('A4')
+                ->showBackground()
+                ->margins(0, 0, 0, 0)
+                ->deviceScaleFactor(2)
+                ->waitUntilNetworkIdle()
+                ->save($pdfPath);
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo 'Gagal generate PDF: ' . htmlspecialchars($e->getMessage());
+            exit;
+        }
+        
+        // Kirim PDF ke user (download)
+        if (file_exists($pdfPath)) {
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: attachment; filename="' . basename($pdfPath) . '"');
+            header('Content-Length: ' . filesize($pdfPath));
+            readfile($pdfPath);
+            exit;
+        } else {
+            http_response_code(500);
+            echo 'File PDF gagal dibuat.';
+            exit;
+        }
     }
 }
