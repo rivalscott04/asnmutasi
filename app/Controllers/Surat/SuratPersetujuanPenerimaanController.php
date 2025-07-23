@@ -150,15 +150,13 @@ class SuratPersetujuanPenerimaanController extends BaseController
         // Save generated file
         file_put_contents($filepath, $templateContent);
         
-        if ($this->expectsJson()) {
-            return $this->success([
-                'filename' => $filename,
-                'download_url' => $this->url('surat/download/' . base64_encode($filename)),
-                'preview_url' => $this->url('surat/preview/' . base64_encode($filename))
-            ], 'Surat berhasil dibuat');
-        } else {
-            return $this->redirect('/surat/preview/' . base64_encode($filename));
-        }
+        // Return array lengkap
+        return [
+            'filename' => $filename,
+            'filepath' => $filepath,
+            'download_url' => $this->url('surat/download/' . base64_encode($filename)),
+            'preview_url' => $this->url('surat/preview/' . base64_encode($filename))
+        ];
     }
     
     /**

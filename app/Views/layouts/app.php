@@ -221,12 +221,12 @@
                             <i class="fas fa-file-text me-2"></i>Jenis Surat
                         </a>
                     </li>
-                    <?php if (isset($_SESSION['user_id'])): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="/pegawai/">
-                            <i class="fas fa-users me-2"></i>Data Pegawai
+                        <a class="nav-link" href="/surat/history">
+                            <i class="fas fa-history me-2"></i>Riwayat Surat
                         </a>
                     </li>
+                    <?php if (isset($_SESSION['user_id'])): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="/settings">
                             <i class="fas fa-cog me-2"></i>Settings

@@ -10,11 +10,8 @@ ob_start();
                 <p class="lead text-muted">Pilih jenis surat yang ingin Anda buat</p>
                 
                 <!-- Navigation Buttons -->
+                <!-- Hapus tombol Riwayat Surat di sini agar tidak redundant dengan navbar -->
                 <div class="d-flex justify-content-center gap-3 mt-4">
-                    <a href="/surat/history" class="btn btn-outline-primary">
-                        <i class="fas fa-history me-2"></i>
-                        Riwayat Surat
-                    </a>
                     <a href="/dashboard-daerah" class="btn btn-outline-secondary">
                         <i class="fas fa-tachometer-alt me-2"></i>
                         Dashboard
